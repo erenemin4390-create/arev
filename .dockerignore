@@ -1,0 +1,13 @@
+node_modules
+.pnpm-store
+.git
+.gitignore
+.expo
+dist
+.webdev
+.env*
+*.log
+/tmp
+arev-media
+__pycache__
+*.pyc
