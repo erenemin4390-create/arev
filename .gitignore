@@ -65,3 +65,7 @@ Thumbs.db
 
 # Webdev artifacts (checkpoint zips, migrations, etc.)
 .webdev/
+
+# Python worker cache
+__pycache__/
+*.pyc
