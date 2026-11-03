@@ -81,7 +81,7 @@ export default function DownloadScreen() {
           {busy ? <Surface style={styles.progressCard}><View style={styles.progressHeader}><Text style={styles.progressStage}>{flow.message || "Aktarılıyor"}</Text><Text style={styles.progressPercent}>{Math.round(flow.progress * 100)}%</Text></View><View style={styles.track}><View style={[styles.trackFill, { width: `${Math.max(3, flow.progress * 100)}%` }]} /></View><SecondaryButton onPress={() => void flow.cancel()} icon="close-circle-outline">İndirmeyi iptal et</SecondaryButton></Surface> : null}
           {flow.stage === "done" ? <Surface style={styles.done}><Ionicons name="checkmark-circle" size={24} color={AREV.forest} /><View style={styles.doneCopy}><Text style={styles.doneTitle}>Dosya hazır</Text><Text style={styles.doneText}>{flow.message}. Dosyalar sekmesinden açabilir veya paylaşabilirsin.</Text></View></Surface> : null}
 
-          <View style={styles.note}><Ionicons name="shield-checkmark-outline" size={17} color={AREV.cocoa} /><Text style={styles.noteText}>AREV yalnızca public medya ile çalışır. 512 MB / 30 dakika sınırı var; indirme sırasında uygulamayı önde tut.</Text></View>
+          <View style={styles.note}><Ionicons name="shield-checkmark-outline" size={17} color={AREV.cocoa} /><Text style={styles.noteText}>AREV yalnızca public medya ile çalışır. İndirme sırasında uygulamayı önde tut; erişim ve kaynak kısıtları siteye göre değişebilir.</Text></View>
         </ScrollView>
       </KeyboardAvoidingView>
       </ScreenContainer>

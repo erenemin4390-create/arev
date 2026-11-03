@@ -23,8 +23,10 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-MAX_BYTES = 512 * 1024 * 1024
-MAX_DURATION = 30 * 60
+# Match Nashi WebDownloadEngine's direct-transfer safety bound. Nashi does
+# not impose a 30-minute media-duration product limit.
+MAX_BYTES = 20 * 1024 * 1024 * 1024
+MAX_DURATION = 365 * 24 * 60 * 60
 ALLOWED_PORTS = {80, 443}
 ALLOWED_EXTS = {"mp4", "webm", "m4a", "mp3", "jpg", "jpeg", "png", "gif", "webp"}
 ALLOWED_MIMES = {

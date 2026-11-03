@@ -2,10 +2,12 @@ import { createHash } from "node:crypto";
 import { isIP } from "node:net";
 import type { Request } from "express";
 
-export const MAX_FILE_BYTES = 512 * 1024 * 1024;
-export const MAX_DURATION_SECONDS = 30 * 60;
+// Nashi WebDownloadEngine permits direct media transfers up to 20 GB and does
+// not impose a 30-minute media-duration product limit.
+export const MAX_FILE_BYTES = 20 * 1024 * 1024 * 1024;
+export const MAX_DURATION_SECONDS = 365 * 24 * 60 * 60;
 export const INSPECTION_TTL_MS = 30 * 60 * 1000;
-export const JOB_TTL_MS = 30 * 60 * 1000;
+export const JOB_TTL_MS = 6 * 60 * 60 * 1000;
 
 const ALLOWED_PORTS = new Set([80, 443]);
 const ALLOWED_EXTENSIONS = new Set(["mp4", "webm", "m4a", "mp3", "jpg", "jpeg", "png", "gif", "webp"]);
