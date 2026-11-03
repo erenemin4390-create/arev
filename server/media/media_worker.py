@@ -313,9 +313,6 @@ def reject_protected(info: dict[str, Any]) -> None:
         raise MediaError("protected_content")
     if info.get("has_drm") or info.get("drm"):
         raise MediaError("protected_content")
-    availability = str(info.get("availability") or "").lower()
-    if availability in {"private", "needs_auth", "subscriber_only", "premium_only", "unlisted"}:
-        raise MediaError("protected_content")
 
 
 def safe_candidate_url(value: Any) -> bool:
@@ -342,9 +339,6 @@ def build_ytdlp_formats(info: dict[str, Any]) -> tuple[str, list[dict[str, Any]]
         if not isinstance(item, dict) or not item.get("format_id"):
             continue
         if item.get("has_drm") or item.get("drm"):
-            continue
-        protocol = str(item.get("protocol") or "").lower()
-        if protocol.startswith("m3u8") or "dash" in protocol or not safe_candidate_url(item.get("url")):
             continue
         ext = str(item.get("ext") or "").lower()
         if ext not in {"mp4", "webm", "m4a", "mp3"}:
