@@ -83,6 +83,7 @@ const ERROR_MESSAGES: Record<string, { status: number; message: string }> = {
   invalid_request: { status: 400, message: "İstek bilgileri eksik veya geçersiz." },
   unsupported_media: { status: 415, message: "Bu medya biçimi desteklenmiyor." },
   protected_content: { status: 403, message: "Oturum, DRM, canlı veya yaklaşan içerik indirilemez." },
+  source_blocked: { status: 403, message: "YouTube bu sunucudan ek doğrulama istiyor. AREV, hesap doğrulamasını veya platform korumasını aşamaz; videoyu YouTube Studio’dan indirip doğrudan medya dosyası olarak kullanın." },
   unsupported_source: { status: 415, message: "Bu kaynak desteklenmiyor." },
   media_not_found: { status: 404, message: "İndirilebilir medya bulunamadı." },
   size_limit: { status: 413, message: "Medya sunucunun güvenli 20 GB aktarım sınırını aşıyor." },

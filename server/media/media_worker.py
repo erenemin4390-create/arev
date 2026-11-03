@@ -289,7 +289,7 @@ def direct_inspect(url: str, mime_hint: str) -> dict[str, Any]:
 
 
 def ytdlp_options() -> dict[str, Any]:
-    return {
+    options: dict[str, Any] = {
         "quiet": True,
         "no_warnings": True,
         "skip_download": True,
@@ -305,6 +305,11 @@ def ytdlp_options() -> dict[str, Any]:
         "external_downloader": {},
         "logger": type("QuietLogger", (), {"debug": lambda *_: None, "warning": lambda *_: None, "error": lambda *_: None})(),
     }
+    deno = os.environ.get("AREV_DENO")
+    if deno and Path(deno).is_file():
+        options["js_runtimes"] = {"deno": {"path": deno}}
+        options["remote_components"] = set()
+    return options
 
 
 def reject_protected(info: dict[str, Any]) -> None:
@@ -416,6 +421,8 @@ def ytdlp_inspect(url: str) -> dict[str, Any]:
             info = downloader.extract_info(url, download=False)
     except Exception as exc:
         text = str(exc).lower()
+        if any(phrase in text for phrase in ("not a bot", "confirm you're not a bot", "confirm you’re not a bot")):
+            raise MediaError("source_blocked")
         if any(word in text for word in ("login", "sign in", "cookie", "private", "drm", "live", "upcoming", "age-restricted")):
             raise MediaError("protected_content")
         raise MediaError("media_not_found")

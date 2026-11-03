@@ -1,8 +1,11 @@
+FROM denoland/deno:bin-2.9.7 AS deno
 FROM node:22-bookworm-slim
 
 ENV PNPM_HOME=/pnpm
 ENV PATH=$PNPM_HOME:$PATH
 WORKDIR /app
+
+COPY --from=deno /deno /usr/local/bin/deno
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends python3 python3-venv ffmpeg ca-certificates \
@@ -22,6 +25,7 @@ RUN cp server/media/media_worker.py dist/media_worker.py
 ENV NODE_ENV=production
 ENV AREV_MEDIA_PYTHON=/opt/arev-venv/bin/python
 ENV AREV_MEDIA_WORKER_PATH=/app/dist/media_worker.py
+ENV AREV_DENO=/usr/local/bin/deno
 ENV AREV_ALLOWED_ORIGINS=https://erenemin4390-create.github.io
 EXPOSE 3000
 CMD ["pnpm", "start"]
