@@ -37,6 +37,7 @@ jobs:
       - name: Export AREV web app
         env:
           EXPO_PUBLIC_GITHUB_PAGES: "1"
+          EXPO_PUBLIC_API_BASE_URL: "https://3000-ibqaheegba57xmygws181-ed463052.sg2.manus.computer"
         run: pnpm exec expo export --platform web
       - name: Disable Jekyll
         run: touch dist/.nojekyll
