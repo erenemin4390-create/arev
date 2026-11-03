@@ -29,6 +29,10 @@ function pairedPreviewOrigin(packagerOrigin: string): string | null {
 
 export function trustedExpoWebOrigins(): Set<string> {
   const origins = new Set<string>();
+  for (const value of (process.env.AREV_ALLOWED_ORIGINS ?? "").split(",")) {
+    const origin = value.trim();
+    if (origin && configuredOriginValue(origin)) origins.add(origin);
+  }
   const packager = configuredOrigin("EXPO_PACKAGER_PROXY_URL");
   const preview = configuredOrigin("EXPO_WEB_PREVIEW_URL");
   // Loopback origins are request-local below. Never put one in this process-wide set: the
@@ -43,6 +47,15 @@ export function trustedExpoWebOrigins(): Set<string> {
     if (paired) origins.add(paired);
   }
   return origins;
+}
+
+function configuredOriginValue(value: string): string | null {
+  try {
+    const url = new URL(value);
+    return (url.protocol === "https:" || url.protocol === "http:") && url.origin === value ? value : null;
+  } catch {
+    return null;
+  }
 }
 
 export function isLoopbackApiHost(hostname: string): boolean {
@@ -108,7 +121,7 @@ export function createCorsMiddleware(
     );
     res.header(
       "Access-Control-Allow-Headers",
-      "Content-Type, Accept, Authorization, X-Requested-With",
+      "Content-Type, Accept, Authorization, X-Requested-With, X-Arev-Client",
     );
     res.header("Access-Control-Allow-Credentials", "true");
     if (req.method === "OPTIONS") {

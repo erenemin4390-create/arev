@@ -22,5 +22,6 @@ RUN cp server/media/media_worker.py dist/media_worker.py
 ENV NODE_ENV=production
 ENV AREV_MEDIA_PYTHON=/opt/arev-venv/bin/python
 ENV AREV_MEDIA_WORKER_PATH=/app/dist/media_worker.py
+ENV AREV_ALLOWED_ORIGINS=https://erenemin4390-create.github.io
 EXPOSE 3000
 CMD ["pnpm", "start"]
