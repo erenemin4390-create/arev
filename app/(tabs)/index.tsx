@@ -7,6 +7,7 @@ import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text
 import { ScreenContainer } from "@/components/screen-container";
 import { AREV, IconBadge, PrimaryButton, SectionLabel, SecondaryButton, Surface, Wordmark } from "@/components/arev/ui";
 import { useMediaDownload } from "@/hooks/arev/use-media-download";
+import { usePwaInstall } from "@/hooks/arev/use-pwa-install";
 
 const SAMPLE_URL = "https://filesamples.com/samples/video/mp4/sample_640x360.mp4";
 
@@ -31,6 +32,7 @@ export default function DownloadScreen() {
   const [pendingShare, setPendingShare] = useState("");
   const flow = useMediaDownload();
   const { inspect: inspectUrl } = flow;
+  const { canInstall, promptInstall } = usePwaInstall();
   const busy = flow.stage === "inspecting" || flow.stage === "preparing" || flow.stage === "transferring";
   const handleIncomingShare = useCallback((incoming: string) => {
     if (busy) setPendingShare(incoming);
@@ -52,7 +54,7 @@ export default function DownloadScreen() {
       <ScreenContainer containerClassName="bg-[#FCFAF2]" safeAreaClassName="bg-[#FCFAF2]" edges={["top", "left", "right"]}>
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === "ios" ? "padding" : undefined}>
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-          <View style={styles.topline}><Wordmark /><View style={styles.privacyPill}><View style={styles.dot} /><Text style={styles.privacyText}>Özel akış</Text></View></View>
+          <View style={styles.topline}><Wordmark /><View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>{Platform.OS === "web" && canInstall ? <Pressable accessibilityRole="button" onPress={() => void promptInstall()} style={{ flexDirection: "row", alignItems: "center", gap: 5, borderRadius: 99, backgroundColor: AREV.lime, paddingVertical: 7, paddingHorizontal: 10 }}><Ionicons name="download-outline" size={15} color={AREV.forest} /><Text style={{ color: AREV.forest, fontSize: 11, fontWeight: "900" }}>AREV’yi yükle</Text></Pressable> : null}<View style={styles.privacyPill}><View style={styles.dot} /><Text style={styles.privacyText}>Özel akış</Text></View></View></View>
           <View style={styles.heroRow}>
             <View style={styles.heroCopy}><Text style={styles.eyebrow}>LINK → DOSYA</Text><Text style={styles.heroTitle}>Bir link.{"\n"}Cebinde bir dosya.</Text><Text style={styles.heroSub}>Açık ve herkese erişilebilir medyayı gerçek kalitesiyle incele, cihazına al.</Text></View>
             <IconBadge name="leaf" />

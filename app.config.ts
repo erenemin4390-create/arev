@@ -105,6 +105,15 @@ const config: ExpoConfig & { logoUrl: string } = {
     bundler: "metro",
     output: "static",
     favicon: "./assets/images/favicon.png",
+    name: "AREV · Açık Medya İndirici",
+    shortName: "AREV",
+    lang: "tr",
+    themeColor: "#254C3B",
+    backgroundColor: "#FCFAF2",
+    display: "standalone",
+    scope: "./",
+    startUrl: "./",
+    description: "Açık web medyasını cihazına aktaran AREV.",
   },
   plugins: [
     "expo-asset",
@@ -165,6 +174,7 @@ const config: ExpoConfig & { logoUrl: string } = {
   experiments: {
     typedRoutes: true,
     reactCompiler: true,
+    baseUrl: "/arev",
   },
 };
 

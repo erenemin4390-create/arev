@@ -1,0 +1,16 @@
+{
+  "short_name": "AREV",
+  "name": "AREV · Açık Medya İndirici",
+  "description": "Açık web medyasını cihazına aktaran AREV.",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#254C3B",
+  "background_color": "#FCFAF2",
+  "lang": "tr",
+  "dir": "ltr"
+}
